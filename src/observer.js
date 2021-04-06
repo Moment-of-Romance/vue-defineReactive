@@ -1,6 +1,9 @@
 //导入defineReactive
 import defineReactive from './defineReactive.js'
 import {def} from './util.js'
+//导入数组的方法
+import {arrayMethods} from './array.js'
+import observe from './observe.js'
 
 export default class Observer {
     constructor(data) {
@@ -8,6 +11,8 @@ export default class Observer {
         //将 Observer实例挂在到 data 上 且__ob__属性不可枚举
         def(data, '__ob__', this, false)
         if(Array.isArray(data)) {
+            //改写数组的 原型
+            Object.setPrototypeOf(data, arrayMethods)
             this.arrayObserve(data)
         } else {
             //将对象转换成响应式数据
@@ -22,7 +27,10 @@ export default class Observer {
         }
     }
     //处理数组的方法
-    arrayObserve() {
-
+    arrayObserve(data) {
+        //遍历数组 将数组的每一项设置为 响应式
+        for(let i = 0, l = data.length; i < l; i++) {
+            observe(data[i])
+        }
     }
 }

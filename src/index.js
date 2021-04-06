@@ -12,12 +12,20 @@ const obj = {
             football: 'A',
             basketball: 'B'
         }
-    }
+    },
+    //添加测试数组
+    loveMovies: [
+        '这个杀手不太冷',
+        '大话西游'
+    ]
 }
 
 observe(obj)
 obj.dreams.sport.football = 'A++'
 console.log(obj)
+
+//测试 数组侦听
+obj.loveMovies.push('英雄本色')
 
 //测试下map 的遍历方式
 // let map = new Map()
